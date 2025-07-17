@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LORESEEKER // ISM LOG</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  body, html {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    color: #ff3333;
+    font-family: 'VT323', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* glitchy broken background */
+  .glitch-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255, 0, 0, 0.05) 0px,
+      rgba(255, 0, 0, 0.05) 2px,
+      transparent 2px,
+      transparent 4px
+    );
+    background-size: cover;
+    animation: glitchMove 2s infinite linear alternate;
+    z-index: 0;
+  }
+  @keyframes glitchMove {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-5px, 3px); }
+    40% { transform: translate(3px, -2px); }
+    60% { transform: translate(-3px, 4px); }
+    80% { transform: translate(2px, -3px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  h1 {
+    font-size: 2rem;
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 6px #ff3333aa, 0 0 12px #ff0000aa;
+    animation: glitchText 1.2s infinite;
+    z-index: 1;
+  }
+
+  @keyframes glitchText {
+    0%, 100% { text-shadow: 0 0 6px #ff3333aa, 0 0 12px #ff0000aa; }
+    25% { text-shadow: 2px 0 #ff3333aa, -2px 0 #ff0000aa; }
+    50% { text-shadow: -2px 0 #ff3333aa, 2px 0 #ff0000aa; }
+    75% { text-shadow: 1px 0 #ff3333aa, -1px 0 #ff0000aa; }
+  }
+
+  .player {
+    z-index: 1;
+    margin-top: 1rem;
+    background: rgba(60, 0, 0, 0.4);
+    border: 2px solid #ff333366;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 0 8px #ff333388;
+  }
+
+  audio {
+    width: 250px;
+    filter: hue-rotate(-20deg) brightness(0.9) contrast(1.2);
+  }
+
+  .note {
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    color: #ff6666aa;
+    text-shadow: 0 0 4px #ff333388;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+<div class="glitch-bg"></div>
+
+<h1>INTERCEPTED LOG: ISM</h1>
+<div class="player">
+  <audio controls>
+    <source src="ism_log.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+<p class="note">fragment forcibly injected into directory...</p>
+</body>
+</html>
