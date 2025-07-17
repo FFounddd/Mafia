@@ -129,11 +129,9 @@
       font-variant-east-asian: full-width;
       animation-duration: 1.2s;
     }
-    /* Stagger glyph flicker delays */
     .glyph:nth-child(1) { animation-delay: 3.6s; }
     .glyph:nth-child(2) { animation-delay: 3.9s; }
     .glyph:nth-child(3) { animation-delay: 4.2s; }
-
     .glyph::before {
       content: '[';
       position: absolute;
@@ -173,29 +171,31 @@
       height: 1.2em;
       transition: opacity 0.3s ease;
     }
-
-    /* Flicker boot animation */
     @keyframes flickerBoot {
-      0% {
-        opacity: 0;
-        text-shadow: none;
-      }
-      10%, 30%, 50%, 70% {
-        opacity: 1;
-        text-shadow:
-          0 0 10px #b36effdd,
-          0 0 30px #d27effbb;
-      }
-      20%, 40%, 60%, 80% {
-        opacity: 0.4;
-        text-shadow: none;
-      }
-      100% {
-        opacity: 1;
-        text-shadow:
-          0 0 15px #d27eff,
-          0 0 30px #b36eff;
-      }
+      0% { opacity: 0; text-shadow: none; }
+      10%, 30%, 50%, 70% { opacity: 1; text-shadow: 0 0 10px #b36effdd, 0 0 30px #d27effbb; }
+      20%, 40%, 60%, 80% { opacity: 0.4; text-shadow: none; }
+      100% { opacity: 1; text-shadow: 0 0 15px #d27eff, 0 0 30px #b36eff; }
+    }
+
+    /* loreseeker faded red link at bottom center */
+    .loreseeker {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      color: #ff3333cc;
+      text-decoration: none;
+      opacity: 0.4;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 6px #ff333388;
+      transition: opacity 0.3s ease, text-shadow 0.3s ease;
+      z-index: 10;
+    }
+    .loreseeker:hover {
+      opacity: 0.8;
+      text-shadow: 0 0 10px #ff3333dd;
     }
   </style>
 </head>
@@ -218,8 +218,9 @@
   <p class="tooltip" aria-live="polite" id="tooltip"></p>
 </div>
 
+<a href="loreseeker.html" class="loreseeker">loreseeker...</a>
+
 <script>
-  // Purple matrix rain effect
   const canvas = document.getElementById('matrixCanvas');
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
@@ -237,38 +238,25 @@
     for (let i = 0; i < drops.length; i++) {
       const char = String.fromCharCode(0x30A0 + Math.floor(Math.random() * 96));
       ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-
       if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
         drops[i] = 0;
       }
       drops[i]++;
     }
   }
-
   setInterval(drawMatrix, 50);
-
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   });
 
-  // Tooltip logic for glyphs
   const glyphs = document.querySelectorAll('.glyph');
   const tooltip = document.getElementById('tooltip');
-
   glyphs.forEach(glyph => {
-    glyph.addEventListener('mouseenter', () => {
-      tooltip.textContent = glyph.getAttribute('data-tooltip');
-    });
-    glyph.addEventListener('mouseleave', () => {
-      tooltip.textContent = '';
-    });
-    glyph.addEventListener('focus', () => {
-      tooltip.textContent = glyph.getAttribute('data-tooltip');
-    });
-    glyph.addEventListener('blur', () => {
-      tooltip.textContent = '';
-    });
+    glyph.addEventListener('mouseenter', () => { tooltip.textContent = glyph.getAttribute('data-tooltip'); });
+    glyph.addEventListener('mouseleave', () => { tooltip.textContent = ''; });
+    glyph.addEventListener('focus', () => { tooltip.textContent = glyph.getAttribute('data-tooltip'); });
+    glyph.addEventListener('blur', () => { tooltip.textContent = ''; });
     glyph.addEventListener('click', () => {
       alert(`You selected: ${glyph.textContent}\n\nMore fragments coming soon...`);
     });
