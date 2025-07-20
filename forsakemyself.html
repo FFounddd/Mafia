@@ -13,7 +13,7 @@
       height: 100%;
       font-family: 'VT323', monospace;
       color: #c96eff;
-      background: radial-gradient(circle at center, rgba(20,0,40,0.8) 0%, #000010 60%, #000000 100%);
+      background: #000000;
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -53,6 +53,15 @@
       animation: titleFlicker 1.8s infinite;
     }
 
+    .poem {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: #a85fe0cc;
+      text-shadow: 0 0 6px #c96eff88;
+      letter-spacing: 0.08em;
+      line-height: 1.6;
+    }
+
     audio {
       margin-top: 1rem;
       width: 100%;
@@ -74,6 +83,11 @@
 <div class="content">
   <h1>FOUND // AN END TO A BEGINNING</h1>
   <audio controls src="found-final-log.mp3"></audio>
+  <div class="poem">
+    Better to rot in silent ruin,<br>
+    Than let another share the weight,<br>
+    For what I carry, is only mine.
+  </div>
 </div>
 
 <script>
@@ -82,47 +96,87 @@
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
+  // stars
   let stars = [];
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 250; i++) {
     stars.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      radius: Math.random() * 1.5 + 0.5,
-      alpha: Math.random() * 0.5 + 0.3,
-      speed: Math.random() * 0.2 + 0.05
+      radius: Math.random() * 1.2 + 0.3,
+      alpha: Math.random() * 0.8 + 0.2,
+      twinkle: Math.random() > 0.96,
+      speed: Math.random() * 0.05 + 0.02
     });
   }
 
-  function drawStars() {
-    // Draw background gradient
+  // nebulas
+  let nebulas = [];
+  for (let i = 0; i < 4; i++) {
+    nebulas.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 200 + 150,
+      alpha: Math.random() * 0.08 + 0.03,
+      dx: Math.random() * 0.1 - 0.05,
+      dy: Math.random() * 0.1 - 0.05
+    });
+  }
+
+  function draw() {
+    // background gradient
     let gradient = ctx.createRadialGradient(
       canvas.width/2, canvas.height/2, 0,
-      canvas.width/2, canvas.height/2, canvas.width/1.2
+      canvas.width/2, canvas.height/2, canvas.width/1.1
     );
-    gradient.addColorStop(0, '#140028');
+    gradient.addColorStop(0, '#0d001a');
     gradient.addColorStop(1, '#000000');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw stars
-    stars.forEach(star => {
+    // nebulas
+    nebulas.forEach(n => {
+      let grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.size);
+      grd.addColorStop(0, `rgba(150, 90, 200, ${n.alpha})`);
+      grd.addColorStop(1, 'transparent');
+      ctx.fillStyle = grd;
       ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201, 110, 255, ${star.alpha})`;
+      ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
       ctx.fill();
 
-      // Move star
-      star.y += star.speed;
-      if (star.y > canvas.height) {
-        star.y = 0;
-        star.x = Math.random() * canvas.width;
+      // move
+      n.x += n.dx;
+      n.y += n.dy;
+      if (n.x - n.size > canvas.width) n.x = -n.size;
+      if (n.x + n.size < 0) n.x = canvas.width + n.size;
+      if (n.y - n.size > canvas.height) n.y = -n.size;
+      if (n.y + n.size < 0) n.y = canvas.height + n.size;
+    });
+
+    // stars
+    stars.forEach(s => {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(220, 170, 255, ${s.alpha})`;
+      ctx.fill();
+
+      // twinkle
+      if (s.twinkle && Math.random() > 0.92) {
+        s.alpha = Math.min(1, s.alpha + 0.3);
+      } else {
+        s.alpha = Math.max(0.3, s.alpha - 0.02);
+      }
+
+      // drift slowly downward
+      s.y += s.speed;
+      if (s.y > canvas.height) {
+        s.y = 0;
+        s.x = Math.random() * canvas.width;
       }
     });
 
-    requestAnimationFrame(drawStars);
+    requestAnimationFrame(draw);
   }
-
-  drawStars();
+  draw();
 
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
