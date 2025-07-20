@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOUND // AN END TO A BEGINNING</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    font-family: 'VT323', monospace;
+    color: #b36effcc;
+    overflow: hidden;
+    position: relative;
+    background: radial-gradient(ellipse at center, #000010 0%, #000000 80%);
+  }
+  .stars, .nebula, .grain {
+    position: absolute; width: 100%; height: 100%;
+    top: 0; left: 0;
+    z-index: 0;
+  }
+  .stars {
+    background: transparent url('https://raw.githubusercontent.com/JulianLaval/canvas-particle-network/master/demo/media/starfield.png') repeat;
+    animation: drift 200s linear infinite;
+    opacity: 0.15;
+  }
+  .nebula {
+    background: radial-gradient(circle at 30% 40%, rgba(179,110,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255,51,51,0.07) 0%, transparent 50%);
+    animation: slowShift 80s ease-in-out infinite alternate;
+    opacity: 0.25;
+  }
+  .grain {
+    background: url('https://media.githubusercontent.com/media/processing/p5.js-website/main/src/assets/images/examples/grain.jpg');
+    opacity: 0.03;
+    mix-blend-mode: screen;
+  }
+  @keyframes drift {
+    0% { background-position: 0 0; }
+    100% { background-position: -2000px 1000px; }
+  }
+  @keyframes slowShift {
+    0% { background-position: 0 0; }
+    100% { background-position: 200px 100px; }
+  }
+  .container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 2rem;
+  }
+  h1 {
+    font-size: 2.2rem;
+    color: #ff3333cc;
+    text-shadow:
+      0 0 5px #ff3333aa,
+      0 0 10px #ff333388,
+      0 0 20px #b36eff55;
+    animation: flicker 2.5s infinite;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.12em;
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: 1; text-shadow: 0 0 8px #ff3333cc; }
+    20% { opacity: 0.8; text-shadow: 0 0 12px #b36effaa; }
+    40% { opacity: 0.6; text-shadow: 0 0 5px #ff3333aa; }
+    60% { opacity: 0.9; text-shadow: 0 0 15px #b36effaa; }
+    80% { opacity: 0.7; text-shadow: 0 0 7px #ff3333aa; }
+  }
+  p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    line-height: 1.6;
+    color: #a463ffcc;
+    text-shadow:
+      0 0 4px #a463ff66,
+      0 0 10px #b36eff44;
+    margin-bottom: 2rem;
+    letter-spacing: 0.07em;
+  }
+  audio {
+    width: 80%;
+    max-width: 400px;
+    outline: none;
+    filter: drop-shadow(0 0 8px #b36eff88);
+    background: rgba(30, 0, 40, 0.4);
+    border-radius: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="nebula"></div>
+<div class="grain"></div>
+
+<div class="container">
+  <h1>FOUND // AN END TO A BEGINNING</h1>
+  <p>
+    "In the end, there was no grand design… <br>
+    Only shards of who I was, drifting further from who I tried to be. <br>
+    I see now what I must become. <br>
+    And in that, perhaps, I find my last peace."
+  </p>
+  <audio id="rewindSound" autoplay>
+    <source src="rewind.mp3" type="audio/mpeg">
+  </audio>
+  <audio controls>
+    <source src="found-final-log.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+</body>
+</html>
