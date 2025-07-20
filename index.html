@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -177,7 +177,6 @@
       20%, 40%, 60%, 80% { opacity: 0.4; text-shadow: none; }
       100% { opacity: 1; text-shadow: 0 0 15px #d27eff, 0 0 30px #b36eff; }
     }
-
     /* loreseeker faded red link at bottom center */
     .loreseeker {
       position: fixed;
@@ -197,6 +196,27 @@
       opacity: 0.8;
       text-shadow: 0 0 10px #ff3333dd;
     }
+    /* NEW: glitchy red T */
+    .glitch-t {
+      display: inline-block;
+      color: #ff3333;
+      text-decoration: none;
+      animation: glitchRed 0.3s infinite;
+      text-shadow:
+        0 0 2px #ff0000,
+        0 0 4px #ff0000,
+        0 0 6px #ff3333;
+      filter: drop-shadow(0 0 2px #ff3333);
+      cursor: pointer;
+    }
+    @keyframes glitchRed {
+      0%   { transform: translate(0, 0); text-shadow: 0 0 2px #ff0000; }
+      20%  { transform: translate(-1px, 0); text-shadow: -1px 0 red; }
+      40%  { transform: translate(1px, -1px); text-shadow: 1px -1px #ff3333; }
+      60%  { transform: translate(-1px, 1px); text-shadow: -1px 1px #ff0000; }
+      80%  { transform: translate(1px, 0); text-shadow: 1px 0 #ff3333; }
+      100% { transform: translate(0, 0); text-shadow: 0 0 2px #ff0000; }
+    }
   </style>
 </head>
 <body>
@@ -204,7 +224,9 @@
 <div class="crt-overlay"></div>
 
 <div class="container" role="main" aria-label="Eternia ARG Lore Hub">
-  <h1>ETERNIA</h1>
+  <h1>
+    E<a href="forsakemyself.html" class="glitch-t">T</a>ERNIA
+  </h1>
   <p class="fragmented-text" id="fragmentedIntro">
     // 8D7F4 - SHARDS OF A FRACTURED CITY <br />
     // F4C3D - CHOICES UNRAVEL, ALLIANCES SHAKE <br />
